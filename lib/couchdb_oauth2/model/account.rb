@@ -10,6 +10,7 @@ class Account < CouchRest::Model::Base
   view_by   :email
   
   validates_uniqueness_of :email
+  validates_presence_of :encrypted_password, :on => :create, :message => "can't be blank"
 
   attr_reader :password
 
@@ -59,7 +60,7 @@ class Account < CouchRest::Model::Base
   end
   
   def self.pepper
-    '5ad96cc293abadd5322908c597a363205b909c99fab13b59895b6e3fc93540f2f276800d6718fa174c9a9720e1148b4da19ee58c779078efe98ca2c76c8cdd40'
+    Rack::CouchdbOAuth2::Configuration.pepper || raise('you need to set your own Rack::CouchdbOAuth2::Configuration.pepper')
   end
   
   def self.secure_compare(a, b)

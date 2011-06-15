@@ -9,6 +9,7 @@ require 'couchdb_oauth2/model/account'
 require 'couchdb_oauth2/model/client'
 require 'couchdb_oauth2/model/refresh_token'
 
+require 'couchdb_oauth2/configuration'
 require 'couchdb_oauth2/token_endpoint'
 require 'couchdb_oauth2/resource/require_bearer_token'
 require 'couchdb_oauth2/resource/require_client'

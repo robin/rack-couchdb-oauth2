@@ -4,6 +4,7 @@ class TestRackCouchdbOauth2 < Test::Unit::TestCase
   include Rack::Test::Methods
   
   def setup
+    Rack::CouchdbOAuth2::Configuration.pepper = 'pepper'
     @client = Client.create(:name => 'test client')
     @account = Account.create(:email => 'test@example.com', :password => 'abc123' )
   end
@@ -17,7 +18,6 @@ class TestRackCouchdbOauth2 < Test::Unit::TestCase
     Rack::Builder.new do
       map '/db' do
         use Rack::CouchdbOAuth2::RequireBearerToken
-        use Rack::CouchdbOAuth2::RequireClient
         run TestApp.new
       end
     
