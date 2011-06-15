@@ -21,6 +21,22 @@ class Test::Unit::TestCase
     assert_not_nil(body['error'])
     assert_nil(body['access_token'])
   end
+  
+  def create_client
+    @client = Client.create(:name => 'test client')
+  end
+  
+  def create_account
+    @account = Account.create(:email => 'test@example.com', :password => 'abc123' )
+  end
+  
+  def destroy_client
+    @client.destroy
+  end
+  
+  def destroy_account
+    @account.destroy
+  end
 end
 
 class TestApp

@@ -22,7 +22,7 @@ module Rack
         client = request.client
         request.unauthorized!(:invalid_token) unless client
         if @authenticator
-          request.unauthorized! unless @authenticator.call(request)          
+          request.unauthorized!(:invalid_token) unless @authenticator.call(request)          
         end
         env[CLIENT] = client
       end

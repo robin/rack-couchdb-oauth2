@@ -5,13 +5,13 @@ class TestRackCouchdbOauth2 < Test::Unit::TestCase
   
   def setup
     Rack::CouchdbOAuth2::Configuration.pepper = 'pepper'
-    @client = Client.create(:name => 'test client')
-    @account = Account.create(:email => 'test@example.com', :password => 'abc123' )
+    create_client
+    create_account
   end
   
   def teardown
-    @client.destroy
-    @account.destroy
+    destroy_client
+    destroy_account
   end
   
   def app
