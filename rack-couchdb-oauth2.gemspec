@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
     "lib/couchdb_oauth2/resource/require_client.rb",
     "lib/couchdb_oauth2/token_endpoint.rb",
     "lib/rack-couchdb-oauth2.rb",
+    "rack-couchdb-oauth2.gemspec",
     "test/helper.rb",
     "test/test_rack-couchdb-oauth2.rb"
   ]
