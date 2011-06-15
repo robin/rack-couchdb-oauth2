@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "rack-couchdb-oauth2"
   gem.homepage = "http://github.com/robin/rack-couchdb-oauth2"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Rack middleware for OAuth2 Provider Server Based on Couchdb}
+  gem.description = %Q{Rack middleware for OAuth2 Provider Server Based on Couchdb}
   gem.email = "iamawalrus@gmail.com"
   gem.authors = ["Robin Lu"]
   # dependencies defined in Gemfile

@@ -1,6 +1,6 @@
 = rack-couchdb-oauth2
 
-Description goes here.
+Rack middleware for OAuth2 Provider Server Based on Couchdb
 
 == Contributing to rack-couchdb-oauth2
  
