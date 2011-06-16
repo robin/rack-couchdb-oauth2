@@ -17,7 +17,8 @@ module Rack
             req.unsupported_grant_type!
           when :password
             # NOTE: password is not hashed in this sample app. Don't do the same on your app.
-            account = req.username.nil? ? nil : Account.first_from_view(:by_email, req.username)
+            account_class = Rack::CouchdbOAuth2::Configuration.account_class
+            account = req.username.nil? ? nil : account_class.find_account(req.username)
             req.invalid_grant! unless account && account.valid_password?(req.password)
             res.access_token = AccessToken.create(:client => client, :account => account).to_bearer_token(:with_refresh_token)
           when :client_credentials

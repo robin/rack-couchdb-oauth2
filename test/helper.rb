@@ -14,6 +14,21 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'rack-couchdb-oauth2'
 
+class Account < CouchRest::Model::Base
+  use_database 'accounts'
+  include Rack::CouchdbOAuth2::Model::Account
+  
+  def self.pepper
+    'pepper'
+  end
+  
+  def self.find_account(identity)
+    first_from_view(:email, identity)
+  end
+end
+
+Rack::CouchdbOAuth2::Configuration.account_class = ::Account
+
 class Test::Unit::TestCase
   def assert_error_response(response)
     assert !response.ok?

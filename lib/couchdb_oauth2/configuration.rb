@@ -21,7 +21,7 @@ module Rack
         RUBY
       end
       
-      add_config  :pepper
+      add_config  :account_class
       
     end
   end

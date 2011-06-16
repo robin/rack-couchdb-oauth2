@@ -4,7 +4,6 @@ class TestRackCouchdbOauth2 < Test::Unit::TestCase
   include Rack::Test::Methods
   
   def setup
-    Rack::CouchdbOAuth2::Configuration.pepper = 'pepper'
     create_client
     create_account
   end
