@@ -23,7 +23,7 @@ class Account < CouchRest::Model::Base
   end
   
   def self.find_account(identity)
-    first_from_view(:email, identity)
+    first_from_view(:by_email, identity)
   end
 end
 

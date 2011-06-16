@@ -49,7 +49,7 @@ module Rack
           return false if encrypted_password.blank?
           bcrypt   = ::BCrypt::Password.new(self.encrypted_password)
           password = ::BCrypt::Engine.hash_secret("#{password}#{self.class.pepper}", bcrypt.salt)
-          Account.secure_compare(password, self.encrypted_password)
+          self.class.secure_compare(password, self.encrypted_password)
         end
 
         def clean_up_passwords
