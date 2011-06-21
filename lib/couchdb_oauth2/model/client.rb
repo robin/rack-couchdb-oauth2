@@ -8,6 +8,9 @@ class Client < CouchRest::Model::Base
   timestamps!
   
   before_validation :setup, :on => :create
+  validates_uniqueness_of :name
+  validates_presence_of :name
+  validates_presence_of :secret
   
   def setup
     if self.secret.nil?
