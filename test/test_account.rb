@@ -16,4 +16,11 @@ class TestRequireClient < Test::Unit::TestCase
     assert(a.save, "Failure message.")
     a.destroy
   end
+  
+  def test_attr_protected
+    a = Account.new(:email => 'aaa@example.com', :encrypted_password => "pwd", :pepper => "pepper")
+    assert_equal('aaa@example.com', a.email)
+    assert_nil(a.encrypted_password)
+    assert_nil(a.pepper)
+  end
 end

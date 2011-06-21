@@ -4,7 +4,7 @@ class Client < CouchRest::Model::Base
   property :name,      String
   property :redirect_url,   String
   property :website,        String
-  property :secret,         String
+  property :secret,         String, :protected => true
   timestamps!
   
   before_validation :setup, :on => :create

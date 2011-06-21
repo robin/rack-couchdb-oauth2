@@ -6,9 +6,10 @@ module Rack
       module Account
         def self.included(klass)
           klass.class_eval do
+
             property  :email,   String
-            property  :encrypted_password,  String
-            property  :pepper,  String
+            property  :encrypted_password,  String, :protected => true
+            property  :pepper,  String, :protected => true
 
             view_by   :email
 

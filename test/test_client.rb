@@ -9,8 +9,10 @@ class TestRequireClient < Test::Unit::TestCase
     c.name = 'abc'
     assert(c.save, "Failure message.")
     
-    c2 = Client.new :name => 'abc'
+    c2 = Client.new :name => 'abc', :secret => 's'
+    assert_nil(c2.secret)
     assert(!c2.save, "Failure message.")
     c.destroy
+    
   end
 end
