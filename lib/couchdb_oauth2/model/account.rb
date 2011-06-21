@@ -12,11 +12,12 @@ module Rack
             property  :pepper,  String, :protected => true
 
             view_by   :email
-
+            
+            validates_presence_of :email
             validates_uniqueness_of :email
+            validates_confirmation_of :password
             validates_presence_of :pepper
             validates_presence_of :encrypted_password
-            validates_confirmation_of :password
             validates_presence_of :password_confirmation, :if => :password_changed?
             
             attr_reader :password
@@ -74,9 +75,6 @@ module Rack
           RefreshToken.view(:by_account_id, :key => self['_id'])
         end
 
-        def self.find_user(identity)
-
-        end
         protected
 
         # Downcase case-insensitive keys
