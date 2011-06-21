@@ -8,21 +8,19 @@ module Rack
           klass.class_eval do
             property  :email,   String
             property  :encrypted_password,  String
-            timestamps!
+            property  :pepper,  String
 
             view_by   :email
 
             validates_uniqueness_of :email
-            validates_presence_of :encrypted_password, :on => :create, :message => "can't be blank"
+            validates_presence_of :pepper
+            validates_presence_of :encrypted_password
+            validates_confirmation_of :password
 
             attr_reader :password
 
             def self.stretches
               5
-            end
-
-            def self.pepper
-              raise('you need to set your own Rack::CouchdbOAuth2::Configuration.pepper')
             end
 
             def self.secure_compare(a, b)
@@ -42,13 +40,14 @@ module Rack
 
         def password=(new_password)
           @password = new_password
+          self.pepper = BCrypt::Engine.generate_salt
           self.encrypted_password = password_digest(@password) if @password.present?
         end
 
         def valid_password?(password)
           return false if encrypted_password.blank?
           bcrypt   = ::BCrypt::Password.new(self.encrypted_password)
-          password = ::BCrypt::Engine.hash_secret("#{password}#{self.class.pepper}", bcrypt.salt)
+          password = ::BCrypt::Engine.hash_secret("#{password}#{self.pepper}", bcrypt.salt)
           self.class.secure_compare(password, self.encrypted_password)
         end
 
@@ -81,7 +80,7 @@ module Rack
 
         # Digests the password using bcrypt.
         def password_digest(password)
-          ::BCrypt::Password.create("#{password}#{self.class.pepper}", :cost => self.class.stretches).to_s
+          ::BCrypt::Password.create("#{password}#{self.pepper}", :cost => self.class.stretches).to_s
         end
 
       end      
