@@ -16,8 +16,7 @@ module Rack
             validates_presence_of :email
             validates_uniqueness_of :email
             validates_confirmation_of :password
-            validates_presence_of :pepper
-            validates_presence_of :encrypted_password
+            validates_presence_of :encrypted_password, :message => 'password should not be empty'
             validates_presence_of :password_confirmation, :if => :password_changed?
             
             attr_reader :password
