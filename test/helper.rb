@@ -42,7 +42,7 @@ class Test::Unit::TestCase
   end
   
   def create_account
-    @account = Account.create(:email => 'test@example.com', :password => 'abc123' )
+    @account = Account.create(:email => 'test@example.com', :password => 'abc123', :password_confirmation => 'abc123' )
   end
   
   def destroy_client

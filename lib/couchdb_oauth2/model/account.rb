@@ -16,7 +16,8 @@ module Rack
             validates_presence_of :pepper
             validates_presence_of :encrypted_password
             validates_confirmation_of :password
-
+            validates_presence_of :password_confirmation, :if => :password_changed?
+            
             attr_reader :password
 
             def self.stretches
@@ -43,7 +44,11 @@ module Rack
           self.pepper = BCrypt::Engine.generate_salt
           self.encrypted_password = password_digest(@password) if @password.present?
         end
-
+        
+        def password_changed?
+          self.encrypted_password_changed?
+        end
+        
         def valid_password?(password)
           return false if encrypted_password.blank?
           bcrypt   = ::BCrypt::Password.new(self.encrypted_password)
