@@ -4,8 +4,11 @@ module Oauth2Token
       cattr_accessor :default_lifetime
       self.default_lifetime = 1.minute
 
-      belongs_to :account
+      belongs_to :account, :class_name => Rack::CouchdbOAuth2::Configuration.account_class.to_s
       belongs_to :client
+      
+      property  :token, String
+      property :expires_at, Time
       
       view_by :expires_at
       view_by :account_id

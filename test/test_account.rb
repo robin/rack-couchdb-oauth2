@@ -4,7 +4,7 @@ class TestRequireClient < Test::Unit::TestCase
   include Rack::Test::Methods
   
   def test_presents
-    a = Account.new()
+    a = User.new()
     assert(!a.save, "Failure message.")
     a.email = 'abc@example.com'
     assert(!a.save, "Failure message.")
@@ -18,7 +18,7 @@ class TestRequireClient < Test::Unit::TestCase
   end
   
   def test_attr_protected
-    a = Account.new(:email => 'aaa@example.com', :encrypted_password => "pwd", :pepper => "pepper")
+    a = User.new(:email => 'aaa@example.com', :encrypted_password => "pwd", :pepper => "pepper")
     assert_equal('aaa@example.com', a.email)
     assert_nil(a.encrypted_password)
     assert_nil(a.pepper)

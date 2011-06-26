@@ -1,5 +1,5 @@
 class Client < CouchRest::Model::Base
-  include CouchdbOAuth2::Model::Base
+  include Rack::CouchdbOAuth2::Model::Base
   
   property :name,      String
   property :redirect_url,   String

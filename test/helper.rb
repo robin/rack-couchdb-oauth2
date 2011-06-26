@@ -14,8 +14,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'rack-couchdb-oauth2'
 
-class Account < CouchRest::Model::Base
-  use_database 'accounts'
+class User < CouchRest::Model::Base
+  use_database 'users'
   include Rack::CouchdbOAuth2::Model::Account
   
   def self.pepper
@@ -27,7 +27,7 @@ class Account < CouchRest::Model::Base
   end
 end
 
-Rack::CouchdbOAuth2::Configuration.account_class = ::Account
+Rack::CouchdbOAuth2::Configuration.account_class = ::User
 
 class Test::Unit::TestCase
   def assert_error_response(response)
@@ -42,7 +42,7 @@ class Test::Unit::TestCase
   end
   
   def create_account
-    @account = Account.create(:email => 'test@example.com', :password => 'abc123', :password_confirmation => 'abc123' )
+    @account = User.create(:email => 'test@example.com', :password => 'abc123', :password_confirmation => 'abc123' )
   end
   
   def destroy_client

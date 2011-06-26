@@ -1,11 +1,9 @@
 class AccessToken < CouchRest::Model::Base
-  include CouchdbOAuth2::Model::Base
+  include Rack::CouchdbOAuth2::Model::Base
   include Oauth2Token
   self.default_lifetime = 15.minutes
 
   belongs_to :refresh_token
-  property  :token, String
-  property  :expires_at,  Time
   timestamps!
   
   def to_bearer_token(with_refresh_token = false)
