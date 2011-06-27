@@ -21,4 +21,10 @@ class Client < CouchRest::Model::Base
   def identity
     self['_id']
   end
+  
+  def self.find_by_env(env)
+    request = Rack::OAuth2::Server::Token::Request.new(env)
+    client = Client.find(request.client_id)
+    client if client && client.secret == request.client_secret
+  end
 end
