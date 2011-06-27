@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-couchdb-oauth2}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robin Lu"]
-  s.date = %q{2011-06-15}
+  s.date = %q{2011-06-27}
   s.description = %q{Rack middleware for OAuth2 Provider Server Based on Couchdb}
   s.email = %q{iamawalrus@gmail.com}
   s.extra_rdoc_files = [
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "lib/couchdb_oauth2/configuration.rb",
     "lib/couchdb_oauth2/model/access_token.rb",
     "lib/couchdb_oauth2/model/account.rb",
     "lib/couchdb_oauth2/model/base.rb",
@@ -36,12 +37,16 @@ Gem::Specification.new do |s|
     "lib/rack-couchdb-oauth2.rb",
     "rack-couchdb-oauth2.gemspec",
     "test/helper.rb",
-    "test/test_rack-couchdb-oauth2.rb"
+    "test/test_account.rb",
+    "test/test_client.rb",
+    "test/test_rack-couchdb-oauth2.rb",
+    "test/test_require_client.rb",
+    "test/test_token.rb"
   ]
   s.homepage = %q{http://github.com/robin/rack-couchdb-oauth2}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.2}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{Rack middleware for OAuth2 Provider Server Based on Couchdb}
 
   if s.respond_to? :specification_version then
