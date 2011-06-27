@@ -18,6 +18,25 @@ module Oauth2Token
       before_validation :setup, :on => :create
       validates :client, :expires_at, :account, :presence => true
       validates :token, :presence => true, :uniqueness => true
+      
+      def self.find_by_env(env)
+        token = find_by_token(env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN])
+        if token.nil? || token.expired?
+          nil
+        else
+          token
+        end
+      end
+      
+      def self.valid
+        view(:by_expires_at, :startkey => Time.now.utc)
+      end
+
+      def self.find_by_token(token)
+        return nil if token.nil? || token.empty?
+        self.first_from_view(:by_token, token)
+      end
+      
     end
   end
 
@@ -32,16 +51,8 @@ module Oauth2Token
 
   def expired?
     self.expires_at < Time.now.utc
-  end
+  end  
   
-  def self.valid
-    view(:by_expires_at, :startkey => Time.now.utc)
-  end
-  
-  def self.find_by_token(token)
-    return nil if token.nil? || token.empty?
-    self.first_from_view(:by_token, token)
-  end
   private
 
   def self.generate(bytes = 64)
