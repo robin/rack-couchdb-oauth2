@@ -22,12 +22,9 @@ class TestToken < Test::Unit::TestCase
       end
       
       map '/db' do
-        use Rack::OAuth2::Server::Resource::Bearer, 'test' do |req|
-          
-        end
         run proc {|env| 
           token = AccessToken.find_by_env(env)
-          raise 'no client' if token.nil?
+          raise 'no token' if token.nil?
           [200, {}, 'OK']
         }
       end

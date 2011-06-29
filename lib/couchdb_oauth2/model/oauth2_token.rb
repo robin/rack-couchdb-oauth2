@@ -17,16 +17,7 @@ module Oauth2Token
       
       before_validation :setup, :on => :create
       validates :client, :expires_at, :account, :presence => true
-      validates :token, :presence => true, :uniqueness => true
-      
-      def self.find_by_env(env)
-        token = find_by_token(env[Rack::OAuth2::Server::Resource::ACCESS_TOKEN])
-        if token.nil? || token.expired?
-          nil
-        else
-          token
-        end
-      end
+      validates :token, :presence => true, :uniqueness => true      
       
       def self.valid
         view(:by_expires_at, :startkey => Time.now.utc)

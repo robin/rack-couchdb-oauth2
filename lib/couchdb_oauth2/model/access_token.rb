@@ -6,6 +6,16 @@ class AccessToken < CouchRest::Model::Base
   belongs_to :refresh_token
   timestamps!
   
+  def self.find_by_env(env)
+    request = Rack::OAuth2::Server::Resource::Bearer::Request.new(env)
+    return nil unless request && request.oauth2?
+    request.setup!
+    token = self.find_by_token request.access_token
+    (token.nil? || token.expired?) ? nil : token
+  rescue
+    nil
+  end
+  
   def to_bearer_token(with_refresh_token = false)
     bearer_token = Rack::OAuth2::AccessToken::Bearer.new(
       :access_token => self.token,
