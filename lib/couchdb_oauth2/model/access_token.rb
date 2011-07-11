@@ -7,13 +7,24 @@ class AccessToken < CouchRest::Model::Base
   timestamps!
   
   def self.find_by_env(env)
-    request = Rack::OAuth2::Server::Resource::Bearer::Request.new(env)
-    return nil unless request && request.oauth2?
-    request.setup!
-    token = self.find_by_token request.access_token
+    token = find_bearer_token_in_env(env) || find_basic_token_in_env(env)
     (token.nil? || token.expired?) ? nil : token
-  rescue
-    nil
+  end
+  
+  def self.find_bearer_token_in_env(env)
+      request = Rack::OAuth2::Server::Resource::Bearer::Request.new(env)
+      return nil unless request && request.oauth2?
+      request.setup!
+      self.find_by_token request.access_token
+    rescue
+      nil    
+  end
+  
+  def self.find_basic_token_in_env(env)
+    auth = Rack::Auth::Basic::Request.new(env)
+    
+    return nil unless auth && auth.provided? && auth.username == 'bearer_access_token' && auth.credentials.last
+    self.find_by_token auth.credentials.last
   end
   
   def to_bearer_token(with_refresh_token = false)

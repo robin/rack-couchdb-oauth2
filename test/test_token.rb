@@ -31,7 +31,7 @@ class TestToken < Test::Unit::TestCase
     end
   end
   
-  def test_find_by_env
+  def test_find_bearer_token_in_env
     post 'oauth2/token', :grant_type => 'password', :client_id => @client.identity, :client_secret => @client.secret, :username => @account.email, :password => 'abc123'
     assert last_response.ok?
     body = ActiveSupport::JSON.decode(last_response.body)
@@ -55,5 +55,33 @@ class TestToken < Test::Unit::TestCase
       header 'AUTHORIZATION', nil
       get 'db'
     }
+  end
+  
+  def test_find_basic_token_in_env
+    post 'oauth2/token', :grant_type => 'password', :client_id => @client.identity, :client_secret => @client.secret, :username => @account.email, :password => 'abc123'
+    assert last_response.ok?
+    body = ActiveSupport::JSON.decode(last_response.body)
+    access_token = body['access_token']
+    refresh_token = body['refresh_token']
+    assert_not_nil(access_token)
+    assert_not_nil(refresh_token)
+    assert_equal('bearer', body['token_type'])
+    
+    assert_raise(RuntimeError) { 
+      header 'AUTHORIZATION', nil
+      get 'db'
+    }
+    
+    require 'base64'
+    token = Base64::encode64("bearer_access_token:#{access_token}")
+    assert_nothing_raised(RuntimeError) { 
+      header 'AUTHORIZATION', "Basic #{token}"
+      get 'db'
+    }
+    
+    assert_raise(RuntimeError) { 
+      header 'AUTHORIZATION', nil
+      get 'db'
+    }    
   end
 end
