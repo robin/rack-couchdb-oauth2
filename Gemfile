@@ -4,7 +4,7 @@ source "http://rubygems.org"
 #   gem "activesupport", ">= 2.3.5"
 gem 'rack'
 gem 'couchrest'
-gem 'couchrest_model', :git => 'git://github.com/couchrest/couchrest_model.git'
+gem 'couchrest_model', '>= 1.1.1'
 gem 'activesupport'
 gem 'rack-oauth2'
 gem 'bcrypt-ruby'
