@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-couchdb-oauth2}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robin Lu"]
-  s.date = %q{2011-06-27}
+  s.date = %q{2011-07-11}
   s.description = %q{Rack middleware for OAuth2 Provider Server Based on Couchdb}
   s.email = %q{iamawalrus@gmail.com}
   s.extra_rdoc_files = [
@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 0"])
       s.add_runtime_dependency(%q<couchrest>, [">= 0"])
-      s.add_runtime_dependency(%q<couchrest_model>, [">= 0"])
+      s.add_runtime_dependency(%q<couchrest_model>, [">= 1.1.1"])
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
       s.add_runtime_dependency(%q<rack-oauth2>, [">= 0"])
       s.add_runtime_dependency(%q<bcrypt-ruby>, [">= 0"])
@@ -66,7 +66,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<rack>, [">= 0"])
       s.add_dependency(%q<couchrest>, [">= 0"])
-      s.add_dependency(%q<couchrest_model>, [">= 0"])
+      s.add_dependency(%q<couchrest_model>, [">= 1.1.1"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<rack-oauth2>, [">= 0"])
       s.add_dependency(%q<bcrypt-ruby>, [">= 0"])
@@ -78,7 +78,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<rack>, [">= 0"])
     s.add_dependency(%q<couchrest>, [">= 0"])
-    s.add_dependency(%q<couchrest_model>, [">= 0"])
+    s.add_dependency(%q<couchrest_model>, [">= 1.1.1"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<rack-oauth2>, [">= 0"])
     s.add_dependency(%q<bcrypt-ruby>, [">= 0"])
