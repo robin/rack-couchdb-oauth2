@@ -1,4 +1,5 @@
 class AccessToken < CouchRest::Model::Base
+  BASIC_USER_NAME = 'bearer_access_token'
   include Rack::CouchdbOAuth2::Model::Base
   include Oauth2Token
   self.default_lifetime = 15.minutes
@@ -23,7 +24,7 @@ class AccessToken < CouchRest::Model::Base
   def self.find_basic_token_in_env(env)
     auth = Rack::Auth::Basic::Request.new(env)
     
-    return nil unless auth && auth.provided? && auth.username == 'bearer_access_token' && auth.credentials.last
+    return nil unless auth && auth.provided? && auth.username == BASIC_USER_NAME && auth.credentials.last
     self.find_by_token auth.credentials.last
   end
   
