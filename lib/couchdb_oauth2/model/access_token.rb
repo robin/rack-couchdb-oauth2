@@ -25,7 +25,11 @@ class AccessToken < CouchRest::Model::Base
     auth = Rack::Auth::Basic::Request.new(env)
     
     return nil unless auth && auth.provided? && auth.username == BASIC_USER_NAME && auth.credentials.last
-    self.find_by_token auth.credentials.last
+    token = self.find_by_token auth.credentials.last
+    if token.nil?
+      token = self.find_by_token(CGI.unescape(auth.credentials.last))
+    end
+    token
   end
   
   def to_bearer_token(with_refresh_token = false)

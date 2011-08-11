@@ -78,9 +78,15 @@ class TestToken < Test::Unit::TestCase
       header 'AUTHORIZATION', "Basic #{token}"
       get 'db'
     }
+
+    token = Base64::encode64("bearer_access_token:#{CGI.escape(access_token)}")
+    assert_nothing_raised(RuntimeError) { 
+      header 'AUTHORIZATION', "Basic #{token}"
+      get 'db'
+    }
     
     assert_raise(RuntimeError) { 
-      header 'AUTHORIZATION', nil
+      header 'AUTHORIZATION', "Basic badtoken"
       get 'db'
     }    
   end
