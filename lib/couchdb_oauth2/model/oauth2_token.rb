@@ -47,7 +47,7 @@ module Oauth2Token
   private
 
   def self.generate(bytes = 64)
-    ActiveSupport::SecureRandom.base64(bytes)
+    SecureRandom.base64(bytes)
   end
   
   def setup
