@@ -14,7 +14,7 @@ class Client < CouchRest::Model::Base
   
   def setup
     if self.secret.nil?
-      self.secret = ActiveSupport::SecureRandom.base64(64)
+      self.secret = SecureRandom.base64(64)
     end
   end
   
